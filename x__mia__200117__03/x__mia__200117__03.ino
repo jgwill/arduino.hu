@@ -10,12 +10,14 @@ int v = 0; //verbose level
 * www.guillaumeisabelle.com/r/mia
 */
 
-int r = 9; // Range Argument of your input move
-double edv = 9;
-double e1v = 1;
-double e2v = 2;
-double e3v = 3;
-double e4v = 4;
+int r =6; // Range Argument of your input move
+int dmin = 150; //distance min to interact
+
+double edv = 1;
+double e1v = 2;
+double e2v = 3;
+double e3v = 4;
+double e4v = 5;
 int e1s = 1;
 int e1e = r;
 int e1p = 5;
@@ -29,12 +31,9 @@ int e4s = e3e + 1;
 int e4e = e4s + r;
 int e4p = 9;
 
-
-
-const int ledPin =  12;      // LED pin number (use pin 13 for builtin LED)
+const int ledPin = 12; // LED pin number (use pin 13 for builtin LED)
 const int analogInPin1 = A0;
 const int analogInPin2 = A1;
-
 
 // defines pins numbers
 const int trigPin = 3;
@@ -55,32 +54,30 @@ void setup()
 
   Serial.begin(9600); // Starts the serial communication
 
-
   // set the digital pin as output:
-  pinMode(ledPin, OUTPUT);      
-  
+  pinMode(ledPin, OUTPUT);
+
   // flash the LED to signal its working properly..
-  for (int i=0; i<3; i++)
+  for (int i = 0; i < 3; i++)
   {
-    digitalWrite(ledPin, 1);  // turn on
+    digitalWrite(ledPin, 1); // turn on
     delay(100);
-    digitalWrite(ledPin, 0);  // turn off
+    digitalWrite(ledPin, 0); // turn off
     delay(100);
   }
 }
 void loop()
 {
 
-  int  sensorValue1, sensorValue2;
+  int sensorValue1, sensorValue2;
 
   // read both analog inputs.
-  
+
   sensorValue1 = analogRead(analogInPin1);
   sensorValue2 = analogRead(analogInPin2);
 
-
-//--------------------------------------------------
-//-----------------------------Distance reading---
+  //--------------------------------------------------
+  //-----------------------------Distance reading---
   // Clears the trigPin
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -97,7 +94,7 @@ void loop()
 
   //char evn = 'n';
 
-  double evn = 3;
+  double evn = 1;
 
   if (distance > e1s && distance < e1e)
   {
@@ -135,22 +132,21 @@ void loop()
       Serial.print(" Event: ");
     }
 
-  //  Serial.print(evn);
+    //  Serial.print(evn);
   }
   // else
   //   Serial.println("");
+if (distance > dmin) distance = dmin;
+
+  sensorValue1 =  distance;// evn;
+  sensorValue2 = distance / 2;
 
 
- sensorValue1 = evn * 45 ;
-sensorValue2 = evn * 55;
-
-  delay(80);
+  //delay(80);
   digitalWrite(e1p, LOW);
   digitalWrite(e2p, LOW);
   digitalWrite(e3p, LOW);
   digitalWrite(e4p, LOW);
-
-
 
   //----------------------------------------------------
   // output values to serial.
@@ -163,16 +159,18 @@ sensorValue2 = evn * 55;
   Serial.print(sensorValue2);
   Serial.print("\n"); // use this instead of println to output only one delimiter
                       // println outputs \r\n
-  
+
   // monitor incoming bytes.
   // in the case of '1' or '0' set LED output accordingly
-  
+
   if (Serial.available())
   {
-    char c = Serial.read();  
+    char c = Serial.read();
     if (c == '1')
-      digitalWrite(ledPin, 1);  // turn on
+      digitalWrite(ledPin, 1); // turn on
     else if (c == '0')
-      digitalWrite(ledPin, 0);  // turn off
+      digitalWrite(ledPin, 0); // turn off
   }
+
+  delay(20);
 }
