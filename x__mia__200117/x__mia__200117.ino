@@ -1,10 +1,15 @@
+int v = 0; //verbose level
 /*
 * Ultrasonic Sensor HC-SR04 and Arduino Tutorial
 *
 * by Dejan Nedelkovski,
 * www.HowToMechatronics.com
 *
+* Deeply altered to becoming the Arduino module of Mia's X200117 - Talking with Touch Designer
+* By J.Guillaume D.Isabelle
+* www.guillaumeisabelle.com/r/mia
 */
+
 int r = 9; // Range Argument of your input move
 int e1s = 1;
 int e1e = r;
@@ -84,7 +89,7 @@ void loop()
   if (evn != 'n')
   {  
     Serial.print("Distance: ");
-  Serial.print(distance);
+    Serial.print(distance);
     Serial.print(" Event: ");
     Serial.println(evn);
   }
