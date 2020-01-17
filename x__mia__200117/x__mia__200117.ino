@@ -11,6 +11,11 @@ int v = 0; //verbose level
 */
 
 int r = 9; // Range Argument of your input move
+double edv = 9;
+double e1v = 1;
+double e2v = 2;
+double e3v = 3;
+double e4v = 4;
 int e1s = 1;
 int e1e = r;
 int e1p = 5;
@@ -58,30 +63,31 @@ void loop()
   distance = duration * 0.034 / 2;
 
   //@STCgoal Generating events in a  string for distance range
-  char evn = 'n';
+  //char evn = 'n';
+  double evn = 3;
   if (distance > e1s && distance < e1e)
   {
-    evn = 'a';
+    evn = e1v;
     digitalWrite(e1p, HIGH);
   }
   else if (distance > e2s && distance < e2e)
   {
-    evn = 'b';
+    evn = e2v;
     digitalWrite(e2p, HIGH);
   }
   else if (distance > e3s && distance < e3e)
   {
-    evn = 'c';
+    evn = e3v;
     digitalWrite(e3p, HIGH);
   }
   else if (distance > e4s && distance < e4e)
   {
-    evn = 'd';
+    evn = e4v;
     digitalWrite(e4p, HIGH);
   }
   else
   {
-    evn = 'n';
+    evn = edv;
   }
 
   // Prints the distance on the Serial Monitor
@@ -93,10 +99,9 @@ void loop()
       Serial.print("Distance: ");
       Serial.print(distance);
       Serial.print(" Event: ");
-      Serial.println(evn);
-    } 
-    else //We only print the event
-      Serial.print(evn);
+    }
+
+    Serial.print(evn);
   }
   // else
   //   Serial.println("");
