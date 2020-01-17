@@ -77,7 +77,6 @@ void loop()
   else
   {
     evn = 'n';
-
   }
 
   // Prints the distance on the Serial Monitor
@@ -91,9 +90,9 @@ void loop()
   else
     Serial.println("");
 
-    delay(100);   
-     digitalWrite(e1p, LOW);
-    digitalWrite(e2p, LOW);
-    digitalWrite(e3p, LOW);
-    digitalWrite(e4p, LOW);
+  delay(100);
+  digitalWrite(e1p, LOW);
+  digitalWrite(e2p, LOW);
+  digitalWrite(e3p, LOW);
+  digitalWrite(e4p, LOW);
 }
