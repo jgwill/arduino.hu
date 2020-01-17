@@ -87,16 +87,21 @@ void loop()
   // Prints the distance on the Serial Monitor
 
   if (evn != 'n')
-  {  
-    Serial.print("Distance: ");
-    Serial.print(distance);
-    Serial.print(" Event: ");
-    Serial.println(evn);
+  {
+    if (v > 0)
+    {
+      Serial.print("Distance: ");
+      Serial.print(distance);
+      Serial.print(" Event: ");
+      Serial.println(evn);
+    } 
+    else //We only print the event
+      Serial.print(evn);
   }
   // else
   //   Serial.println("");
 
-  delay(100);
+  delay(80);
   digitalWrite(e1p, LOW);
   digitalWrite(e2p, LOW);
   digitalWrite(e3p, LOW);
