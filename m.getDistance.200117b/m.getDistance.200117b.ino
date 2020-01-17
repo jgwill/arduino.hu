@@ -34,9 +34,23 @@ digitalWrite(trigPin, LOW);
 duration = pulseIn(echoPin, HIGH);
 // Calculating the distance
 distance= duration*0.034/2;
+
+//@STCgoal Generating events in a  string for distance range
+char evn = 'n';
+if (distance > e1s && distance < e1e) evn = 'a';
+else 
+if (distance > e2s && distance < e2e) evn = 'b';
+else 
+if (distance > e3s && distance < e3e) evn = 'c';
+else 
+if (distance > e4s && distance < e4e) evn = 'd';
+else evn = 'n';
+
 // Prints the distance on the Serial Monitor
 Serial.print("Distance: ");
-Serial.println(distance);
-String evn = "none";
-if (ev
+Serial.print(distance);
+if (evn != 'n'){
+Serial.print(" Event: ");
+Serial.println(evn);
+}else Serial.println("");
 }
