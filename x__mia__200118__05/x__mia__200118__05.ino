@@ -20,31 +20,40 @@ double e3v = 4;
 double e4v = 5;
 int e1s = 1;
 int e1e = r;
-int e1p = 5;
+int e1p = 6; //PIN light to validate.. might be removed
 int e2s = e1e + 1;
 int e2e = e2s + r;
-int e2p = 6;
+int e2p = 7;
 int e3s = e2e + 1;
 int e3e = e3s + r;
-int e3p = 7;
+int e3p = 8;
 int e4s = e3e + 1;
 int e4e = e4s + r;
 int e4p = 9;
 
-const int ledPin = 12; // LED pin number (use pin 13 for builtin LED)
-const int analogInPin1 = A0;
-const int analogInPin2 = A1;
 
+//-----------------------------IO
+const int ledPin = 12; // LED pin number (use pin 13 for builtin LED)
+const int analogInPin1 = A0; //@STCGoal Potentiometer
+const int analogInPin2 = A1; //@STCGoal ???
+
+//---------------------------
 // defines pins numbers
-const int trigPin = 3;
+const int trigPin = 3;// First Distance
 const int echoPin = 2;
+const int trigPin2 = 5; // Second Distance
+const int echoPin2 = 4;
 // defines variables
 long duration;
 int distance;
+long duration2;
+int distance2;
 void setup()
 {
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT);  // Sets the echoPin as an Input
+  pinMode(trigPin2, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin2, INPUT);  // Sets the echoPin as an Input
 
   //turning lights when event occurs
   pinMode(e1p, OUTPUT);
@@ -89,6 +98,18 @@ void loop()
   duration = pulseIn(echoPin, HIGH);
   // Calculating the distance
   distance = duration * 0.034 / 2;
+
+// Clears the trigPin
+  digitalWrite(trigPin2, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin2, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin2, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration2 = pulseIn(echoPin2, HIGH);
+  // Calculating the distance
+  distance2 = duration2 * 0.034 / 2;
 
   //@STCgoal Generating events in a  string for distance range
 
@@ -139,7 +160,7 @@ void loop()
 if (distance > dmin) distance = dmin;
 
   sensorValue1 =  distance;// evn;
-  sensorValue2 = distance / 2;
+  sensorValue2 = distance2;
 
 
   //delay(80);
