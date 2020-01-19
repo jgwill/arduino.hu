@@ -12,6 +12,9 @@ int v = 0; //verbose level
 
 int r =6; // Range Argument of your input move
 int dmin = 150; //distance min to interact
+int dmin2 = 110; //distance min to interact 
+int defdist = 1;
+int defdist2 = 1;
 
 double edv = 1;
 double e1v = 2;
@@ -39,10 +42,10 @@ const int analogInPin2 = A1; //@STCGoal ???
 
 //---------------------------
 // defines pins numbers
-const int trigPin = 3;// First Distance
-const int echoPin = 2;
-const int trigPin2 = 5; // Second Distance
-const int echoPin2 = 4;
+const int trigPin = 2;// First Distance
+const int echoPin = 3;
+const int trigPin2 = 4; // Second Distance
+const int echoPin2 = 5;
 // defines variables
 long duration;
 int distance;
@@ -157,7 +160,8 @@ void loop()
   }
   // else
   //   Serial.println("");
-if (distance > dmin) distance = dmin;
+if (distance > dmin) distance = defdist;
+if (distance2 > dmin2) distance2 = defdist2;
 
   sensorValue1 =  distance;// evn;
   sensorValue2 = distance2;
