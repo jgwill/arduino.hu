@@ -1,4 +1,4 @@
-int v = 0; //verbose level
+int v = 1; //verbose level
 /*
 * Ultrasonic Sensor HC-SR04 and Arduino Tutorial
 *
@@ -9,12 +9,14 @@ int v = 0; //verbose level
 * By J.Guillaume D.Isabelle
 * www.guillaumeisabelle.com/r/mia
 */
-
+int th = 30 ; //threshold shift / tolerance
 int r =6; // Range Argument of your input move
 int dmin = 150; //distance min to interact
 int dmin2 = 110; //distance min to interact 
 int defdist = 1;
 int defdist2 = 1;
+int pdist = defdist; //previous
+int pdist2 = defdist2;
 
 double edv = 1;
 double e1v = 2;
@@ -160,8 +162,26 @@ void loop()
   }
   // else
   //   Serial.println("");
-if (distance > dmin) distance = defdist;
-if (distance2 > dmin2) distance2 = defdist2;
+
+//@STCIssue Trying to fix some undesired effect when (I think) ping of the distance misses and gives us a huge shift
+int pdistMin = pdist - distance;
+int pdistMin2 = pdist2 - distance2;
+
+if (pdistMin > th || pdistMin < (th * -1)){
+  //@State OVer threshold
+  distance = pdist; //for now, keep the previous value 
+}
+else if (distance > dmin) distance = defdist;
+
+
+if (pdistMin2 > th || pdistMin2 < (th * -1)){
+  //@State OVer threshold
+  distance2 = pdist2; //for now, keep the previous value 
+}
+else if (distance2 > dmin2) distance2 = defdist2;
+
+
+
 
   sensorValue1 =  distance;// evn;
   sensorValue2 = distance2;
@@ -198,4 +218,6 @@ if (distance2 > dmin2) distance2 = defdist2;
   }
 
   delay(20);
+  pdist2 = distance2;
+  pdist= distance;
 }

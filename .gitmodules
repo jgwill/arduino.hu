@@ -1,0 +1,3 @@
+[submodule "OpTAir"]
+	path = OpTAir
+	url = git@github.com:GuillaumeIsabelle/OpTAir.git

@@ -51,6 +51,8 @@ void loop()
   duration = pulseIn(echoPin, HIGH);
   // Calculating the distance
   distance = duration * 0.034 / 2;
+Serial.print(distance);
+Serial.print("\n");
 
   //@STCgoal Generating events in a  string for distance range
   char evn = 'n';
